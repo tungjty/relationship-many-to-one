@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import com.example.demo.model.Child;
+import com.example.demo.model.Dad;
 import com.example.demo.model.Mom;
 import com.example.demo.repository.ChildRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -21,14 +22,17 @@ public class RelationshipManyToOneApplication {
     CommandLineRunner run(ChildRepository childRepository) {
         return args -> {
             Mom mom_us = new Mom("Mommy US");
-            Mom mom_vn = new Mom("Mommy VN");
+            Dad dad_us = new Dad("Daddy US");
 
-            Child mariaChild = new Child("Maria Carey", mom_us);
-            Child johnChild = new Child("Johny Deep", mom_us);
+            Mom mom_vn = new Mom("Mommy VN");
+            Dad dad_vn = new Dad("Daddy VN");
+
+            Child mariaChild = new Child("Maria Carey", mom_us, dad_us);
+            Child johnChild = new Child("Johny Deep", mom_us, dad_us);
             List<Child> children_us = List.of(mariaChild, johnChild);
 
-            Child huyChild = new Child("Mai Huy", mom_vn);
-            Child tranChild = new Child("Khanh Tran", mom_vn);
+            Child huyChild = new Child("Mai Huy", mom_vn, dad_vn);
+            Child tranChild = new Child("Khanh Tran", mom_vn, dad_vn);
             List<Child> children_vn = List.of(huyChild, tranChild);
 
             childRepository.saveAll(children_us);

@@ -29,7 +29,7 @@ public class Child {
     String childName;
 
     @ManyToOne(
-            // DO NOT USE 'CascadeType.REMOVE': DELETE CHILD -> DELETE MOM -> FAIL
+            // DO NOT USE 'CascadeType.REMOVE': DELETE CHILD -> DELETE DAD -> FAIL
             cascade = {CascadeType.PERSIST},
             fetch = FetchType.EAGER)
     @JoinColumn(
@@ -41,8 +41,22 @@ public class Child {
     )
     private Mom mom;
 
-    public Child(String childName, Mom mom) {
+    @ManyToOne(
+            // DO NOT USE 'CascadeType.REMOVE': DELETE CHILD -> DELETE MOM -> FAIL
+            cascade = {CascadeType.PERSIST},
+            fetch = FetchType.EAGER)
+    @JoinColumn(
+            name = "dad_id",
+            referencedColumnName = "dad_id",
+            foreignKey = @ForeignKey(
+                    name = "dad_dad_id_fk"
+            )
+    )
+    private Dad dad;
+
+    public Child(String childName, Mom mom, Dad dad) {
         this.childName = childName;
         this.mom = mom;
+        this.dad = dad;
     }
 }
