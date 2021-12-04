@@ -5,9 +5,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Data
+//@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "tbl_mom")
@@ -20,7 +21,22 @@ public class Mom {
 
     private String momName;
 
+    // TODO : DECLARE @OneToMany HERE IS OPTIONAL (NOT REQUIRED)
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            mappedBy = "mom"
+    )
+    private List<Child> children;
+
     public Mom(String momName) {
         this.momName = momName;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getMomName() {
+        return momName;
     }
 }
